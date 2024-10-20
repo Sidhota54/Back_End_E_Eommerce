@@ -2,7 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv").config();
 const cookieParser = require("cookie-parser");
-// const cors = require("cors");
+const cors = require("cors");
 const authRouter = require("./routes/auth/auth-routes");
 const adminProductsRouter = require("./routes/admin/products-routes");
 const adminOrderRouter = require("./routes/admin/order-routes");
@@ -27,6 +27,14 @@ mongoose
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+app.use(
+  cors({
+    origin: "*", // Allow all origins
+    methods: ["GET", "POST", "DELETE", "PUT", "PATCH", "OPTIONS"], // Allow all common methods
+    allowedHeaders: ["Content-Type", "Authorization", "Cache-Control", "Expires", "Pragma"], // Allow these headers
+    credentials: true // Optional: Allow credentials if needed
+  })
+);
 // app.use(
 //   cors({
 //     origin: "http://localhost:5173",
