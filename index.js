@@ -53,6 +53,9 @@ app.use(cors());
 
 app.use(cookieParser());
 app.use(express.json());
+app.use("/",(req, res)=> {
+  res.json({ message: "Wellcome to Ecom Backend" })
+})
 app.use("/api/auth", authRouter);
 app.use("/api/admin/products", adminProductsRouter);
 app.use("/api/admin/orders", adminOrderRouter);
