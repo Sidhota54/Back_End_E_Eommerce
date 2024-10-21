@@ -110,10 +110,7 @@ const authMiddleware = (isAdmin = false) => {
       const decoded = jwt.verify(token, process.env.CLIENT_SECRET_KEY);
       req.user = decoded;
       if (isAdmin) {
-        const { email } = decoded
-        const checkUser = await User.findOne({ email });
-        console.log(checkUser)
-        if (checkUser.role === "admin") {
+        if (decoded.role === "admin") {
           next();
         }
         else {
@@ -126,6 +123,7 @@ const authMiddleware = (isAdmin = false) => {
       else {
         next();
       }
+      // next();
     } catch (error) {
       res.status(401).json({
         success: false,

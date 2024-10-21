@@ -11,6 +11,6 @@ const router = express.Router();
 
 router.post("/add",authMiddleware(true), addFeatureImage);
 router.delete("/delete/:id",authMiddleware(true),deleteFeatureImages);
-router.get("/get",authMiddleware(true), getFeatureImages);
+router.get("/get",authMiddleware(false), getFeatureImages);
 
 module.exports = router;
