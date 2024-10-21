@@ -5,11 +5,12 @@ const {
   getFeatureImages,
   deleteFeatureImages
 } = require("../../controllers/common/feature-controller");
+const { authMiddleware } = require("../../controllers/auth/auth-controller");
 
 const router = express.Router();
 
-router.post("/add", addFeatureImage);
-router.delete("/delete/:id",deleteFeatureImages)
-router.get("/get", getFeatureImages);
+router.post("/add",authMiddleware(true), addFeatureImage);
+router.delete("/delete/:id",authMiddleware(true),deleteFeatureImages);
+router.get("/get",authMiddleware(true), getFeatureImages);
 
 module.exports = router;

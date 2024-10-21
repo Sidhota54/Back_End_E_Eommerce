@@ -97,24 +97,42 @@ const logoutUser = (req, res) => {
 };
 
 //auth middleware
-const authMiddleware = async (req, res, next) => {
-  const token = req.cookies.token;
-  if (!token)
-    return res.status(401).json({
-      success: false,
-      message: "Unauthorised user!",
-    });
+const authMiddleware = (isAdmin = false) => {
+  return async (req, res, next) => {
+    const token = req.cookies.token;
+    if (!token)
+      return res.status(401).json({
+        success: false,
+        message: "Unauthorised user!",
+      });
 
-  try {
-    const decoded = jwt.verify(token, process.env.CLIENT_SECRET_KEY);
-    req.user = decoded;
-    next();
-  } catch (error) {
-    res.status(401).json({
-      success: false,
-      message: "Unauthorised user!",
-    });
-  }
+    try {
+      const decoded = jwt.verify(token, process.env.CLIENT_SECRET_KEY);
+      req.user = decoded;
+      if (isAdmin) {
+        const { email } = decoded
+        const checkUser = await User.findOne({ email });
+        console.log(checkUser)
+        if (checkUser.role === "admin") {
+          next();
+        }
+        else {
+          res.status(401).json({
+            success: false,
+            message: "Unauthorised user admin role Required!",
+          });
+        }
+      }
+      else {
+        next();
+      }
+    } catch (error) {
+      res.status(401).json({
+        success: false,
+        message: "Unauthorised user!",
+      });
+    }
+  };
 };
 
 module.exports = { registerUser, loginUser, logoutUser, authMiddleware };
