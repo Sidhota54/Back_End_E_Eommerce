@@ -27,16 +27,16 @@ mongoose
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-app.use(cors());
-app.options('*', cors());
-// app.use(
-//   cors({
-//     origin: "*", // Allow all origins
-//     methods: ["GET", "POST", "DELETE", "PUT", "PATCH", "OPTIONS"], // Allow all common methods
-//     allowedHeaders: ["Content-Type", "Authorization", "Cache-Control", "Expires", "Pragma"], // Allow these headers
-//     credentials: true // Optional: Allow credentials if needed
-//   })
-// );
+// app.use(cors());
+// app.options('*', cors());
+app.use(
+  cors({
+    origin: "*", // Allow all origins
+    methods: ["GET", "POST", "DELETE", "PUT", "PATCH", "OPTIONS"], // Allow all common methods
+    allowedHeaders: ["Content-Type", "Authorization", "Cache-Control", "Expires", "Pragma"], // Allow these headers
+    credentials: true // Optional: Allow credentials if needed
+  })
+);
 // app.use(
 //   cors({
 //     origin: "http://localhost:5173",
@@ -54,9 +54,6 @@ app.options('*', cors());
 
 app.use(cookieParser());
 app.use(express.json());
-// app.use("/",(req, res)=> {
-//   res.json({ message: "Wellcome to Ecom Backend" })
-// })
 app.get('/',(req, res) => {
     res.status(200).json({ message: "Wellcome to Ecom Backend" })
 })
