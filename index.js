@@ -54,8 +54,11 @@ app.options('*', cors());
 
 app.use(cookieParser());
 app.use(express.json());
-app.use("/",(req, res)=> {
-  res.json({ message: "Wellcome to Ecom Backend" })
+// app.use("/",(req, res)=> {
+//   res.json({ message: "Wellcome to Ecom Backend" })
+// })
+app.get('/',(req, res) => {
+    res.status(200).json({ message: "Wellcome to Ecom Backend" })
 })
 app.use("/api/auth", authRouter);
 app.use("/api/admin/products", adminProductsRouter);
