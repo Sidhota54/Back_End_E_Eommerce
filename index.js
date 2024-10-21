@@ -2,7 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv").config();
 const cookieParser = require("cookie-parser");
-// const cors = require("cors");
+const cors = require("cors");
 const authRouter = require("./routes/auth/auth-routes");
 const adminProductsRouter = require("./routes/admin/products-routes");
 const adminOrderRouter = require("./routes/admin/order-routes");
@@ -31,7 +31,7 @@ const PORT = process.env.PORT || 5000;
 // app.use(cors());
 
 // Handle pre-flight requests for all routes
-// app.options('*', cors());
+app.options('*', cors());
 // app.use(
 //   cors({
 //     origin: "*", // Allow all origins
