@@ -100,6 +100,7 @@ const logoutUser = (req, res) => {
 const authMiddleware = (isAdmin = false) => {
   return async (req, res, next) => {
     const token = req.cookies.token;
+   
     if (!token)
       return res.status(401).json({
         success: false,
@@ -123,7 +124,6 @@ const authMiddleware = (isAdmin = false) => {
       else {
         next();
       }
-      // next();
     } catch (error) {
       res.status(401).json({
         success: false,
