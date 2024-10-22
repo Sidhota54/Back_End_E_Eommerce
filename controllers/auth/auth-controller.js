@@ -100,29 +100,26 @@ const logoutUser = (req, res) => {
 const authMiddleware = (isAdmin = false) => {
   return async (req, res, next) => {
     const token = req.cookies.token;
-   
+   console.log("token",token)
     if (!token)
       return res.status(401).json({
         success: false,
         message: "Unauthorised user!",
       });
-
     try {
       const decoded = jwt.verify(token, process.env.CLIENT_SECRET_KEY);
       req.user = decoded;
-      if (isAdmin) {
-        if (decoded.role === "admin") {
-          next();
-        }
-        else {
-          res.status(401).json({
-            success: false,
-            message: "Unauthorised user admin role Required!",
-          });
-        }
+      if(!isAdmin){
+        next();
+      }
+      else if (isAdmin && decoded.role === "admin") {
+        next();
       }
       else {
-        next();
+        return res.status(401).json({
+          success: false,
+          message: "Unauthorised user!",
+        });
       }
     } catch (error) {
       res.status(401).json({
