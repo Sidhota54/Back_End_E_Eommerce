@@ -104,7 +104,7 @@ const authMiddleware = (isAdmin = false) => {
     if (!token)
       return res.status(401).json({
         success: false,
-        message: "Unauthorised user!",
+        message: "Unauthorised user! (invalid token)",
       });
     try {
       const decoded = jwt.verify(token, process.env.CLIENT_SECRET_KEY);
@@ -118,7 +118,7 @@ const authMiddleware = (isAdmin = false) => {
       else {
         return res.status(401).json({
           success: false,
-          message: "Unauthorised user!",
+          message: "Unauthorised user! (invalid role)",
         });
       }
     } catch (error) {
