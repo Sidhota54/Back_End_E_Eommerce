@@ -203,8 +203,9 @@ const loginUser = async (req, res) => {
 
     res.cookie("token", token, { 
       httpOnly: true,               // Prevent access from client-side scripts
-      secure: false,         // Use secure cookies in production
-      sameSite: "lax", // Strict for production, lax for local
+      secure: true,         // Use secure cookies in production
+      sameSite: "None",
+      domain: ".vercel.app", // Strict for production, lax for local
       maxAge: 24 * 60 * 60 * 1000,  // Cookie expiration (1 day in ms)
       path: "/",                    // Make cookie available across the entire site
     }).json({
