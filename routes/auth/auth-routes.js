@@ -14,7 +14,7 @@ router.post("/verifyotp", verifyOtp);
 
 router.post("/login", loginUser);
 router.post("/logout", logoutUser);
-router.get("/check-auth", authMiddleware(false), (req, res) => {
+router.post("/check-auth", authMiddleware(false), (req, res) => {
   const user = req.user;
   res.status(200).json({
     success: true,

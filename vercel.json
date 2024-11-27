@@ -1,34 +1,15 @@
 {
-  "version": 2,
-  "builds": [
-    {
-      "src": "./index.js",
-      "use": "@vercel/node"
-    }
-  ],
-  "rewrites": [
-    {
-      "source": "/api/(.*)",     
-      "destination": "/index.js"     
-    }
-  ],
-  "headers": [
-    {
-      "source": "/api/(.*)", 
-      "headers": [
+    "version": 2,
+    "builds": [
         {
-          "key": "Access-Control-Allow-Origin",
-          "value": "https://shopfromhome.vercel.app" 
-        },
+            "src": "./index.js",
+            "use": "@vercel/node"
+        }
+    ],
+    "routes": [
         {
-          "key": "Access-Control-Allow-Credentials",
-          "value": "true" 
-        },
-        {
-          "key": "Set-Cookie",
-          "value": "SameSite=None; Secure" 
+          "src": "/(.*)",
+          "dest": "/"
         }
       ]
-    }
-  ]
 }
