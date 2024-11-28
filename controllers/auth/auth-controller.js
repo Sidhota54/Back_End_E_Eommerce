@@ -247,9 +247,12 @@ const authMiddleware = (isAdmin = false) => {
         success: false,
         message: "Unauthorised user! (invalid token)",
       });
+
+      
     try {
       const decoded = jwt.verify(token, process.env.CLIENT_SECRET_KEY);
       req.user = decoded;
+      req.token = token;
       if (!isAdmin) {
         next();
       }
